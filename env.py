@@ -1,10 +1,7 @@
-def apply_default_settings(for_numpy: bool = True, for_pandas: bool = True):
-    if for_numpy:
-        import numpy
+def apply_default_settings(np=None, pd=None):
+    if np:
+        np.set_printoptions(suppress=True, precision=2, threshold=3)
 
-        numpy.set_printoptions(suppress=True, precision=2, threshold=3)
-
-    if for_pandas:
-        import pandas
-
-        pandas.set_option("display.width", 200)
+    if pd:
+        pd.set_option("display.width", 200)
+        pd.set_option("display.max_columns", 20)
