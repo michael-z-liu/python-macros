@@ -4,7 +4,7 @@ from typing import Union
 
 def find_files_by_extension(
     root: Union[os.PathLike, str], extension: str, recursive: bool = True
-) -> list[str]:
+) -> list[os.PathLike]:
 
     pathlib.Path(root)
 
