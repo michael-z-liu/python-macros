@@ -1,3 +1,5 @@
+from typing import Optional
+
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -66,10 +68,12 @@ def add_invisible_square(ax: plt.Axes, half_width: float = 1):
 
 
 def add_crosshair(
-    ax: plt.Axes, x: float = 0, y: float = 0, color: str = "silver", zorder: float = -1
+    ax: plt.Axes, x: Optional[float] = 0, y: Optional[float] = 0, color: str = "silver", zorder: float = -1
 ):
-    ax.axhline(x, color=color, zorder=zorder)
-    ax.axvline(y, color=color, zorder=zorder)
+    if x is not None:
+        ax.axhline(x, color=color, zorder=zorder)
+    if y is not None:
+        ax.axvline(y, color=color, zorder=zorder)
 
 
 def match_xlims(all_axes: list[plt.Axes]):
