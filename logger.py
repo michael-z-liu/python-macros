@@ -22,6 +22,6 @@ def setup(module_name: str, logging_level=logging.INFO):
 
 
 def get(module_name: str, logging_level=logging.INFO) -> logging.Logger:
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger(module_name)
     setup(module_name, logging_level)
     return logger
