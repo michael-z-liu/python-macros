@@ -106,3 +106,13 @@ def make_yaxis_symmetrical(ax: plt.Axes):
 def make_xaxis_symmetrical(ax: plt.Axes):
     val = np.abs(ax.get_xlim()).max()
     ax.set_xlim(-val, val)
+
+
+
+def add_identity_line(ax: plt.Axes, config: Optional[dict] = None):
+    config_ = dict(color="silver", alpha=1.0, zorder=-1)
+    if config:
+        config_.update(config)
+    val_min = min(ax.get_xlim()[0], ax.get_ylim()[0])
+    val_max = max(ax.get_xlim()[1], ax.get_ylim()[1])
+    ax.plot([val_min, val_max], [val_min, val_max], **config_)
