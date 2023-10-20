@@ -1,6 +1,9 @@
 from typing import Optional
 
+import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.cm as colormap
+
 import numpy as np
 
 
@@ -68,7 +71,11 @@ def add_invisible_square(ax: plt.Axes, half_width: float = 1):
 
 
 def add_crosshair(
-    ax: plt.Axes, x: Optional[float] = 0, y: Optional[float] = 0, color: str = "silver", zorder: float = -1
+    ax: plt.Axes,
+    x: Optional[float] = 0,
+    y: Optional[float] = 0,
+    color: str = "silver",
+    zorder: float = -1,
 ):
     if x is not None:
         ax.axhline(x, color=color, zorder=zorder)
@@ -108,7 +115,6 @@ def make_xaxis_symmetrical(ax: plt.Axes):
     ax.set_xlim(-val, val)
 
 
-
 def add_identity_line(ax: plt.Axes, config: Optional[dict] = None):
     config_ = dict(color="silver", alpha=1.0, zorder=-1)
     if config:
@@ -116,3 +122,16 @@ def add_identity_line(ax: plt.Axes, config: Optional[dict] = None):
     val_min = min(ax.get_xlim()[0], ax.get_ylim()[0])
     val_max = max(ax.get_xlim()[1], ax.get_ylim()[1])
     ax.plot([val_min, val_max], [val_min, val_max], **config_)
+
+
+def array_to_colormap(
+    array: np.ndarray, cmap_name: str,
+):
+    # source: https://stackoverflow.com/questions/26108436/how-can-i-get-the-matplotlib-rgb-color-given-the-colormap-name-boundrynorm-an
+    cmap = plt.get_cmap(cmap_name)
+    norm = mpl.colors.Normalize(
+        vmin=float(np.nanmin(array)), vmax=float(np.nanmax(array))
+    )
+    scalar_map = mpl.cm.ScalarMappable(norm=norm, cmap=cmap)
+
+    return scalar_map.to_rgba(array)
