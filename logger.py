@@ -1,5 +1,8 @@
 import logging
 
+DEBUG = logging.DEBUG
+INFO = logging.INFO
+
 
 def setup(module_name: str, logging_level=logging.INFO):
 
