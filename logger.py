@@ -3,8 +3,10 @@ import logging
 DEBUG = logging.DEBUG
 INFO = logging.INFO
 
+DEFAULT_LOGGING_LEVEL = INFO
 
-def setup(module_name: str, logging_level=logging.INFO):
+
+def setup(module_name: str, logging_level=DEFAULT_LOGGING_LEVEL):
 
     logging.basicConfig(format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 
@@ -29,7 +31,7 @@ def setup(module_name: str, logging_level=logging.INFO):
     """
 
 
-def get(module_name: str, logging_level=logging.INFO) -> logging.Logger:
+def get(module_name: str, logging_level=DEFAULT_LOGGING_LEVEL) -> logging.Logger:
     logger = logging.getLogger(module_name)
     setup(module_name, logging_level)
     return logger

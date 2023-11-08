@@ -125,13 +125,25 @@ def add_identity_line(ax: plt.Axes, config: Optional[dict] = None):
 
 
 def array_to_colormap(
-    array: np.ndarray, cmap_name: str,
+    array: np.ndarray, cmap_name: str = "jet", symmetrical: bool = False
 ):
     # source: https://stackoverflow.com/questions/26108436/how-can-i-get-the-matplotlib-rgb-color-given-the-colormap-name-boundrynorm-an
     cmap = plt.get_cmap(cmap_name)
     norm = mpl.colors.Normalize(
-        vmin=float(np.nanmin(array)), vmax=float(np.nanmax(array))
+        vmin=float(np.nanmin(array) if not symmetrical else -np.nanmax(np.abs(array))),
+        vmax=float(np.nanmax(array) if not symmetrical else np.nanmax(np.abs(array))),
     )
     scalar_map = mpl.cm.ScalarMappable(norm=norm, cmap=cmap)
 
     return scalar_map.to_rgba(array)
+
+
+def get_gridspec_kwargs(
+    width_ratios: Optional[list[int]] = None, height_ratios: Optional[list[int]] = None
+) -> dict:
+    kwargs = {}
+    if width_ratios:
+        kwargs["width_ratios"] = width_ratios
+    if height_ratios:
+        kwargs["height_ratios"] = height_ratios
+    return {"gridspec_kw": kwargs}
