@@ -6,6 +6,8 @@ import matplotlib.cm as colormap
 
 import numpy as np
 
+from .math import round_up
+
 
 def close_all():
     plt.close("all")
@@ -15,6 +17,7 @@ def customise_axis(
     ax: plt.Axes,
     xlabel: str = "",
     ylabel: str = "",
+    zlabel: str = "",
     title: str = "",
     grid: bool = False,
     legend_loc: str = "",
@@ -31,6 +34,9 @@ def customise_axis(
 
     if ylabel:
         ax.set_ylabel(ylabel, fontweight="bold")
+
+    if zlabel:
+        ax.set_ylabel(zlabel, fontweight="bold")
 
     if title:
         ax.set_title(title, fontweight="bold")
@@ -147,3 +153,17 @@ def get_gridspec_kwargs(
     if height_ratios:
         kwargs["height_ratios"] = height_ratios
     return {"gridspec_kw": kwargs}
+
+
+def get_optimal_nrows_ncols(total: int) -> tuple[int, int]:
+    nrows = int(np.sqrt(total)) - 1
+    ncols = round_up(total / nrows)
+    return nrows, ncols
+
+
+def get_default_fig_params(**kwargs) -> dict:
+    return {
+        "figsize": kwargs.get("figsize", (25, 12)),
+        "clear": kwargs.get("clear", True),
+        "tight_layout": kwargs.get("tight_layout", True),
+    }
