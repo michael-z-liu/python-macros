@@ -3,6 +3,7 @@ from typing import Optional
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.cm as colormap
+import seaborn
 
 import numpy as np
 
@@ -128,6 +129,10 @@ def add_identity_line(ax: plt.Axes, config: Optional[dict] = None):
     val_min = min(ax.get_xlim()[0], ax.get_ylim()[0])
     val_max = max(ax.get_xlim()[1], ax.get_ylim()[1])
     ax.plot([val_min, val_max], [val_min, val_max], **config_)
+
+
+def get_distinct_colors(n: int, palette: str = "pastel"):
+    return seaborn.color_palette(palette, n)
 
 
 def array_to_colormap(
