@@ -22,6 +22,7 @@ def customise_axis(
     title: str = "",
     grid: bool = False,
     legend_loc: str = "",
+    legend_alpha: float = 0.8,
     facecolor_rgba: tuple[float, float, float, float] = (),
     xlims: tuple[float, float] = (),
     ylims: tuple[float, float] = (),
@@ -46,7 +47,7 @@ def customise_axis(
         ax.grid(alpha=0.3)
 
     if legend_loc:
-        ax.legend(loc=legend_loc)
+        ax.legend(loc=legend_loc, framealpha=legend_alpha)
 
     if len(facecolor_rgba) == 4:
         ax.set_facecolor(facecolor_rgba)
